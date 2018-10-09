@@ -3,11 +3,13 @@ package com.bass.test.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bass.test.dao.StudentDAO;
 import com.bass.test.service.StudentService;
 import com.bass.test.vo.StudentInfo;
 
+@Service
 public class StudentServiceImpl implements StudentService {
 
 	@Autowired
