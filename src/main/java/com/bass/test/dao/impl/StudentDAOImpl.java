@@ -31,19 +31,19 @@ public class StudentDAOImpl implements StudentDAO{
 	@Override
 	public Integer insertStudent(StudentInfo si) {
 		// TODO Auto-generated method stub
-		return null;//ss.insert("SQL.Student.insertStudent",si);
+		return ss.insert("SQL.Student.insertStudent",si);
 	}
 
 	@Override
 	public Integer updateStudent(StudentInfo si) {
 		// TODO Auto-generated method stub
-		return null;
+		return ss.update("SQL.Student.updateStudent",si);
 	}
 
 	@Override
 	public Integer deleteStudent(Integer stuNum) {
 		// TODO Auto-generated method stub
-		return null;
+		return ss.delete("SQL.Student.deleteStudent", stuNum);
 	}
 
 }
