@@ -24,7 +24,7 @@
 
 	<insert id="insertStudent" parameterType="si">
 		insert into student
-		values(seq_studentn.nextval, #{student_name},
+		values(seq_student_num.nextval, #{student_name},
 		#{student_major},
 		#{total_credit_hour}, #{gpa}, #{student_phone},
 		#{student_address},
@@ -35,32 +35,32 @@
 	<update id="updateStudent" parameterType="si">
 		update student
 		 <set>
-		 	<if test="student_name!=NULL">
+		 	<if test="student_name!=null">
 		 	 student_name=#{student_name},
 		 	</if>
-		 	<if test="student_major!=NULL">
+		 	<if test="student_major!=null">
 		 	 student_major=#{student_major},
 		 	</if>
-		 	<if test="total_credit_hour!=NULL">
+		 	<if test="total_credit_hour!=null">
 		 	 total_credit_hour=#{total_credit_hour},
 		 	</if>
-		 	<if test="gpa!=NULL">
+		 	<if test="gpa!=0.0">
 		 	  gpa=#{gpa},
 		 	</if>
-		 	<if test="student_phone!=NULL">
+		 	<if test="student_phone!=null">
 		 	 student_phone=#{student_phone},
 		 	</if>
-		 	<if test="student_address!=NULL">
+		 	<if test="student_address!=null">
 		 	 student_address=#{student_address},
 		 	</if>
-		 	<if test="student_professor!=NULL">
+		 	<if test="student_professor!=null">
 		 	 student_professor=#{student_professor},
 		 	</if>
-		 	<if test="student_email">
+		 	<if test="student_email!=null">
 		 	student_email=#{student_email},
 		 	</if>
-		 	<if test="student_email">
-		 	student_grade=#{student_grade} 
+		 	<if test="student_grade!=null">
+		 	student_grade=#{student_grade}, 
 		 	</if>
 		 </set>
 
