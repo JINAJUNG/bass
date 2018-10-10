@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bass.test.service.StudentService;
 import com.bass.test.vo.StudentInfo;
@@ -20,33 +21,35 @@ public class StudentController {
 	@Autowired
 	private StudentService ss;
 
-	@RequestMapping( value="/studentPage", method=RequestMethod.GET)
+	@RequestMapping( value="/studentinfo", method=RequestMethod.GET)
 	@ResponseBody
 	public List<StudentInfo> getStudentList(@ModelAttribute StudentInfo si){
 		return ss.getStudentList(si);
 	}
-	@RequestMapping(value="/studentPage/{studentnum}",method=RequestMethod.GET)
+	@RequestMapping(value="/studentinfo/{studentnum}",method=RequestMethod.GET)
 	@ResponseBody
 	public StudentInfo getStudent(@PathVariable Integer studentnum) {
 		return ss.getStudent(studentnum);
 	}
 	
-	@RequestMapping(value="/studentPage",method=RequestMethod.POST)
-	@ResponseBody
-	public Integer insertStudent(@RequestBody StudentInfo si) {
-		return ss.insertStudent(si);
+	@RequestMapping(value="/studentinfo",method=RequestMethod.POST)
+	
+	public ModelAndView insertStudent(@ModelAttribute StudentInfo si, ModelAndView mav) {
+			mav.setViewName("studentinfo/list");
+			mav.addObject("insertCount",ss.insertStudent(si));
+		return mav;
 	}
 	
-	@RequestMapping(value="/studentPage/{studentnum}",method=RequestMethod.PUT)
+	@RequestMapping(value="/studentinfo/{studentnum}",method=RequestMethod.PUT)
 	@ResponseBody
 	public Integer updateStudent(@RequestBody StudentInfo si,@PathVariable Integer studentnum) {
 		si.setStudent_num(studentnum);
 		return ss.updateStudent(si);
 	}
 	
-	@RequestMapping(value="/studentPage/{studentnum}",method=RequestMethod.DELETE)
+	@RequestMapping(value="/studentinfo/{studentnum}",method=RequestMethod.DELETE)
 	@ResponseBody
-	public Integer updateStudent(@PathVariable Integer studentnum) {
+	public Integer deleteStudent(@PathVariable Integer studentnum) {
 		return ss.deleteStudent(studentnum);
 	}
 	

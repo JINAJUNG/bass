@@ -31,6 +31,7 @@ public class StudentDAOImpl implements StudentDAO{
 	@Override
 	public Integer insertStudent(StudentInfo si) {
 		// TODO Auto-generated method stub
+		System.out.println("dao"+si);
 		return ss.insert("SQL.Student.insertStudent",si);
 	}
 
