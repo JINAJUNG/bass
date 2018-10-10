@@ -33,15 +33,38 @@
 	</insert>
 
 	<update id="updateStudent" parameterType="si">
-		update student set  student_name=#{student_name},
-		student_major=#{student_major},
-		total_credit_hour=#{total_credit_hour}, gpa=#{gpa},
-		student_phone=#{student_phone},
-		student_address=#{student_address},
-		student_professor=#{student_professor},
-		student_email=#{student_email},
-		student_grade=#{student_grade} where
-		student_num=#{student_num}
+		update student
+		 <set>
+		 	<if test="student_name!=NULL">
+		 	 student_name=#{student_name},
+		 	</if>
+		 	<if test="student_major!=NULL">
+		 	 student_major=#{student_major},
+		 	</if>
+		 	<if test="total_credit_hour!=NULL">
+		 	 total_credit_hour=#{total_credit_hour},
+		 	</if>
+		 	<if test="gpa!=NULL">
+		 	  gpa=#{gpa},
+		 	</if>
+		 	<if test="student_phone!=NULL">
+		 	 student_phone=#{student_phone},
+		 	</if>
+		 	<if test="student_address!=NULL">
+		 	 student_address=#{student_address},
+		 	</if>
+		 	<if test="student_professor!=NULL">
+		 	 student_professor=#{student_professor},
+		 	</if>
+		 	<if test="student_email">
+		 	student_email=#{student_email},
+		 	</if>
+		 	<if test="student_email">
+		 	student_grade=#{student_grade} 
+		 	</if>
+		 </set>
+
+		where student_num=#{student_num}
 	</update>
 	<delete id="deleteStudent" parameterType="si">
 		delete from student where student_num=#{student_num}
