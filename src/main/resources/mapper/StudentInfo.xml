@@ -13,7 +13,7 @@
 		<where>
 			<if test="student_num!=null"> and student_num=#{student_num}
 			</if>
-			<if test="student_Professor!=null"> and student_Professor=#{student_Professor}
+			<if test="student_professor!=null"> and student_professor=#{student_rofessor}
 			</if>
 			<if test="student_major!=null"> and student_major=#{student_major}
 			</if>

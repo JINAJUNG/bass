@@ -10,7 +10,7 @@
 
 	<properties>
 		<!-- Generic properties -->
-		<m2eclipse.wtp.contextRoot>/ict3</m2eclipse.wtp.contextRoot>
+		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
