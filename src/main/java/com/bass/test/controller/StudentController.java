@@ -26,6 +26,13 @@ public class StudentController {
 	public List<StudentInfo> getStudentList(@ModelAttribute StudentInfo si){
 		return ss.getStudentList(si);
 	}
+	
+	@RequestMapping( value="/studentinfo/insert", method=RequestMethod.GET)
+	public String getStudentList(){
+		return "studentinfo/insert";
+	}
+	
+	
 	@RequestMapping(value="/studentinfo/{studentnum}",method=RequestMethod.GET)
 	@ResponseBody
 	public StudentInfo getStudent(@PathVariable Integer studentnum) {
@@ -33,7 +40,6 @@ public class StudentController {
 	}
 	
 	@RequestMapping(value="/studentinfo",method=RequestMethod.POST)
-	
 	public ModelAndView insertStudent(@ModelAttribute StudentInfo si, ModelAndView mav) {
 			mav.setViewName("studentinfo/list");
 			mav.addObject("insertCount",ss.insertStudent(si));

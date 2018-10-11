@@ -1,19 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+  }
+  table {
+    width: 50%;
+  }
+</style>
+ <jsp:include page="/WEB-INF/views/common/script.jsp"/>
 </head>
-	<c:if test="${!empty insertCount}">
-		<c:if test="${insertCount eq 1 }">
-			<script>
-				alert("등록성공")
-				//location.href = '/studentinfo'
-			</script>
-		</c:if>
-	</c:if>
+
 <script>
 var AjaxUtil = function(conf){
 	var xhr = new XMLHttpRequest();
@@ -42,11 +43,13 @@ var AjaxUtil = function(conf){
 		xhr.setRequestHeader('Content-type','application/json;charset=utf-8');
 	}
 	this.send = function(){
-		xhr.send();
+		xhr.send(param);
 	}
 }
 
-window.addEventListener('load',function(){
+
+
+window.addEventListener('load', function(){ 
 		var conf= {
 			url : '/studentinfo',
 			success : function(response){
@@ -76,12 +79,14 @@ window.addEventListener('load',function(){
 		au.send();
 });
 
+
 </script>
 <body>
-	학생이름 :
-	<input type="text" name="student_name">
-	<button>학생검색</button>
-	<table border="1">
+<div class="form row"> 
+ <div class="col-2">
+	<input type="text" class="form-control" placeholder="이름을 입력해주세요" name="student_name"></div>
+	<button type="button" class="btn btn-info">학생검색</button>
+  	<table  class="table table-bordered table-hover"> 
 		<thead>
 			<tr>
 				<th>학번</th>
@@ -97,55 +102,81 @@ window.addEventListener('load',function(){
 				<th>수정</th>
 				<th>삭제</th>
 			</tr>
+			
 		</thead>
 		<tbody id="student">
 		</tbody>
 	</table>
-	<script>
-var updateStudent = function(){
-	var student_name = document.querySelector("#student_name" + student_num).value;
-	var student_major = document.querySelector("#student_major" + student_num).value;
-	var total_credit_hour = document.querySelector("#total_credit_hour" + student_num).value;
-	var gpa = document.querySelector("#gpa" + student_num).value;
-	var student_phone = document.querySelector("#student_phone" + student_num).value;
-	var student_address = document.querySelector("#student_address" + student_num).value;
-	var student_professor = document.querySelector("#student_professor" + student_num).value;
-	var student_email = document.querySelector("#student_email" + student_num).value;
-	var student_grade = document.querySelector("#student_grade" + student_Num).value;
+	
+	<button type="button" class="btn btn-info" onclick= "addStudent()">학생등록</button>
+	</div>
+	</div>
+	
 
-	var params = {student_name:student_name,student_major:student_major,total_credit_hour:total_credit_hour,gpa:gpa,student_phone:student_phone,student_address:student_address,
-				student_professor:student_professor,student_email:student_email,student_grade:student_grade};
-	params = JSON.stringify(params);
+	<script>
 	
-	var conf= {
-			url : '/studentinfo/' + student_num,
-			method : 'PUT',
-			param : params,
-			success : function(response){
-				alert(response);
-			}
-					
-	}
-	var au = new AjaxUtil(conf);
-	au.send();
- 
-	};
+	function updateStudent(student_num){
+		var student_name = document.querySelector("#student_name" + student_num).value;
+		var student_major = document.querySelector("#student_major" + student_num).value;
+		var total_credit_hour = document.querySelector("#total_credit_hour" + student_num).value;
+		var gpa = document.querySelector("#gpa" + student_num).value;
+		var student_phone = document.querySelector("#student_phone" + student_num).value;
+		var student_address = document.querySelector("#student_address" + student_num).value;
+		var student_professor = document.querySelector("#student_professor" + student_num).value;
+		var student_email = document.querySelector("#student_email" + student_num).value;
+		var student_grade = document.querySelector("#student_grade" + student_num).value;
 	
-	var deleteStudent = function(){
+		var params = {student_name:student_name,student_major:student_major,total_credit_hour:total_credit_hour,gpa:gpa,student_phone:student_phone,student_address:student_address,
+					student_professor:student_professor,student_email:student_email,student_grade:student_grade};
+		params = JSON.stringify(params); 
+		console.log(params);
+		
 		var conf= {
-				url : '/studentinfo/' + student_Num,
-				method : 'DELETE',
+				url : '/studentinfo/' + student_num,
+				method : 'PUT',
 				param : params,
 				success : function(response){
-					alert(response);
+					if(response==1){
+						alert("수정 성공");	
+					}
+				
+				}
+				
+						
+		}
+		var au = new AjaxUtil(conf);
+		au.send();
+	 
+	};
+	
+	function deleteStudent(student_num){
+		var conf= {
+				url : '/studentinfo/' + student_num,
+				method : 'DELETE',
+				success : function(response){
+					if(response==1){
+						alert("삭제 성공");
+					}
+					
 				}
 						
 		}
 		var au = new AjaxUtil(conf);
 		au.send();
-	}
+	};
+	
+	function addStudent(){
+		
+		location.href = "/studentinfo/insert";
+		
+		};
+						
+						
 
-	function stView(student_num){ 
+		}
+		
+
+	/* function stView(student_num){ 
   		var url = "/studentinfo/" + student_num; 
   		var conf = {url:url, 
   				success:viewInfo}; 
@@ -154,7 +185,7 @@ var updateStudent = function(){
   		au.send(); 
   		 
   		function viewInfo(response){ 
-  			document.querySelector("#student").innerHTML = getView(JSON.parse(res)); 
+  			document.querySelector("#form").innerHTML = getView(JSON.parse(res)); 
   		} 
   	} 
   	 
@@ -167,12 +198,12 @@ var updateStudent = function(){
   		au.send(); 
    
   		function updateView(response){ 
-  			document.querySelector('#student').innerHTML = getModify(JSON.parse(response)); 
+  			document.querySelector('#form').innerHTML = getModify(JSON.parse(response)); 
   		} 
   	} 
   	 
   	function updateInfo(){ 
-  		var form = document.querySelector("student"); 
+  		var form = document.querySelector("form"); 
   		var formData = new FormData(form); 
  		 
   		var params = formDataToJson(formData); 
@@ -190,8 +221,8 @@ var updateStudent = function(){
   			 
   		var au = new AjaxUtil(conf); 
   		au.send(); 
-  	}
-  	}
+  	} */
+ 
 </script>
 </body>
 </html>

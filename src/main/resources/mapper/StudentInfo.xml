@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- <where>태그가 있으면 linum이나 변수 하나만 넘길 수 없고 쓰지않고 where로 하나만비교하는 delete나 update같은 
-	경우는 가능ㅎ다. -->
+	경우는 가능ㅎㅏ다. -->
 <!-- <where>는 mybatis tag http://aljjabaegi.tistory.com/310태그정리 -->
 <mapper namespace="SQL.Student">
 	<!-- 조회는 resultType 변경,등록,삭제는 parameterType -->
