@@ -1,0 +1,22 @@
+#form button {
+	margin-top : 73%;
+	margin-left: 170%;
+}
+
+#form input {
+	margin-top : 50%;
+	margin-left: 70%;
+	width: 200px;
+	
+}
+
+#form2 {
+	margin: 0.5% 5% 10% 5%;
+	width: 80%;
+	
+}
+
+#form2 input {
+	width: 115px;
+	text-align : center;
+}
