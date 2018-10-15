@@ -1,55 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
 	pageEncoding="UTF-8"%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
 <meta charset="UTF-8">
-
 <title>Insert title here</title>
-
+<jsp:include page="/WEB-INF/views/common/script.jsp" />
 </head>
-
 <script>
-
 	var AjaxUtil = function(conf) {
-
 		var xhr = new XMLHttpRequest();
-
 		var url = conf.url;
-
 		var method = conf.method ? conf.method : 'GET';
-
 		var param = conf.param ;
-
 		var success = conf.success ? conf.success : function(response) {
-
 			alert(response);
 
 		}
 
 		var error = conf.error ? conf.error : function(response) {
-
 			alert(response);
 
 		}
 
 		xhr.onreadystatechange = function() {
-
 			if (xhr.readyState == 4) {
-
 				if (xhr.status == "200") {
-
 					success(xhr.responseText);
 
 				} else {
-
 					error(xhr.responseText);
 
 				}
@@ -59,17 +39,13 @@
 		}
 
 		xhr.open(method, url);
-
 		if (method != 'GET') {
-
 			xhr.setRequestHeader('Content-type',
-
 					'application/json;charset=utf-8');
 
 		}
 
 		this.send = function() {
-
 			xhr.send(param);
 
 		}
@@ -94,7 +70,7 @@
 		<button type="button" onclick="addStudent()" class="btn btn-info">학생등록</button>
 
 	</form>
-
+<c:set var="cnt" value="${insertCount}"></c:set>
 	<script>
 		function addStudent() { // 학생등록
 			 if(!joinform()){
@@ -134,7 +110,8 @@
 				param : params,
 				success : function(response){
 					if(response==1){
-						alert("수정 성공");	
+						alert("등록 성공");	
+						location.href = "/url/studentinfo:list";
 
 					}			
 
@@ -143,7 +120,6 @@
 		}
 
 			var au = new AjaxUtil(conf);
-
 			au.send(); 
 
 		};
@@ -214,7 +190,7 @@
 
 			    	}
 
-			    if(student_grade.value.length==''){
+			    if(student_grade.value.length=='' || !(student_grade.value<=4)){
 			    	alert("학년정보를 숫자로만 입력해주세요");
 			    	student_grade.focus();
 			    	return false;

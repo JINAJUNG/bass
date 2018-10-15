@@ -23,9 +23,10 @@ public class StudentController {
 
 	@RequestMapping( value="/studentinfo", method=RequestMethod.GET)
 	@ResponseBody
-	public List<StudentInfo> getStudentList(@ModelAttribute StudentInfo si){
+	public List<StudentInfo> getStudentList(String keyword){
+		StudentInfo si = new StudentInfo();
+		si.setStudent_major(keyword);
 		return ss.getStudentList(si);
-		
 	}
 	
 	@RequestMapping( value="/studentinfo/insert", method=RequestMethod.GET)
@@ -36,17 +37,27 @@ public class StudentController {
 	
 	@RequestMapping(value="/studentinfo/{studentnum}",method=RequestMethod.GET)
 	@ResponseBody
-	public StudentInfo getStudent(@PathVariable Integer studentnum) {
-		return ss.getStudent(studentnum);
+	public ModelAndView getStudent(@PathVariable Integer studentnum, ModelAndView m) {	
+		m.setViewName("/studentinfo/view");
+		m.addObject("student", ss.getStudent(studentnum));
+		return m;
+	}
+	
+	@RequestMapping(value="/studentinfo/{student_major}",method=RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView getStudent(@PathVariable String student_major, ModelAndView m) {
+		StudentInfo si = new StudentInfo();
+		si.setStudent_major(student_major);
+		m.setViewName("/studentinfo/list");
+		m.addObject("searchstudent", ss.	getStudentList(si));
+		return m;
 	}
 	
 	@RequestMapping(value="/studentinfo",method=RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView insertStudent(@RequestBody StudentInfo si, ModelAndView mav) {
-		System.out.println(si);
-			mav.setViewName("studentinfo/list");
-			mav.addObject("insertCount",ss.insertStudent(si));
-		return mav;
+	public Integer insertStudent(@RequestBody StudentInfo si) {
+		
+		return ss.insertStudent(si);
 	}
 	
 	@RequestMapping(value="/studentinfo/{studentnum}",method=RequestMethod.PUT)

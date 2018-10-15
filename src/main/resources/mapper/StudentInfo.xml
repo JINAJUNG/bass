@@ -8,7 +8,7 @@
 <!-- <where>는 mybatis tag http://aljjabaegi.tistory.com/310태그정리 -->
 <mapper namespace="SQL.Student">
 	<!-- 조회는 resultType 변경,등록,삭제는 parameterType -->
-	<select id="selectStudentList" resultType="si">
+	<select id="selectStudentList" resultType="si" parameterType="si">
 		select * from student
 		<where>
 			<if test="student_num!=null"> and student_num=#{student_num}
