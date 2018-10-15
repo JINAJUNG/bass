@@ -49,7 +49,7 @@ public class StudentController {
 		StudentInfo si = new StudentInfo();
 		si.setStudent_major(student_major);
 		m.setViewName("/studentinfo/list");
-		m.addObject("searchstudent", ss.	getStudentList(si));
+		m.addObject("searchstudent", ss.getStudentList(si));
 		return m;
 	}
 	
