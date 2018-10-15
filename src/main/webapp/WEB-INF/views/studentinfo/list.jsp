@@ -1,5 +1,7 @@
+<%@page import="javax.servlet.jsp.tagext.TagLibraryInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +9,9 @@
 <title>Insert title here</title>
 <jsp:include page="/WEB-INF/views/common/script.jsp" />
 </head>
-
+<body>
+	<c:set value="${searchstudent}" var="si"></c:set>
+</body>
 <script>
 
 var AjaxUtil = function(conf){
@@ -53,15 +57,12 @@ var AjaxUtil = function(conf){
 
 window.addEventListener('load', function(){ 
 		var conf= {
-
 			url : '/studentinfo',
-
 			success : function(response){
 				response=JSON.parse(response);
-
-				var html='';
-
 				
+				var html='';
+			
 				for(var si of response){						
 					 html +='<td>' + si.student_num + '</td>';
 					 html +='<td><input type="text" id="student_name' + si.student_num +'" value="' + si.student_name + '"></td>';
@@ -99,11 +100,13 @@ window.addEventListener('load', function(){
 	<form id="form">
 		<div class="form row">
 			<div class="col-1">
-				<input type="text" class="form-control" placeholder="학과를 입력해주세요" name="student_major">
+				<input type="text" id="keyword" class="form-control"
+					placeholder="학과를 입력해주세요" name="student_major">
 			</div>
 			<br>
 			<div class="mb-2 mr-sm-2">
-				<button type="button" class="btn btn-info">학과검색</button>
+				<button type="button" class="btn btn-info"
+					onclick="searchStudent(document.querySelector('#keyword').value)">학과검색</button>
 			</div>
 		</div>
 	</form>
@@ -132,13 +135,13 @@ window.addEventListener('load', function(){
 
 			<tbody id="student">
 			</tbody>
-			</table>
+		</table>
 
-	<button type="button" class="btn btn-info" onclick="addStudent()">학생등록</button>
-
+		<button type="button" class="btn btn-info" onclick="addStudent()">학생등록</button>
 	</form>
+</body>
 
-	<script>
+<script>
 
 	function updateStudent(student_num){
 		var student_name = document.querySelector("#student_name" + student_num).value;
@@ -165,6 +168,7 @@ window.addEventListener('load', function(){
 				success : function(response){
 					if(response==1){
 						alert("수정 성공");	
+						location.href = '/url/studentinfo:list';
 
 					}			
 
@@ -187,16 +191,16 @@ window.addEventListener('load', function(){
 				success : function(response){
 					if(response==1){
 						alert("삭제 성공");
-
+						location.href = '/url/studentinfo:list';
 					}		
 
 				}
-	
+		
 
 		}
 
 		var au = new AjaxUtil(conf);
-
+		
 		au.send();
 
 	};
@@ -204,119 +208,52 @@ window.addEventListener('load', function(){
 
 	function addStudent(){
 
-		location.href = "/studentinfo/insert";
+		location.href = '/studentinfo/insert';
 
 		};		
 
 	function detailviewStudent(student_num){
+		alert(student_num)
+		location.href = "/studentinfo/"+student_num;
 
-		location.href = "/studentinfo/view";
-
-					}	
-
+		}		
 	
-		
-		
-		
+	function searchStudent(student_major){
+		var conf= {
+				url : '/studentinfo?keyword=' + student_major,
+				method : 'GET',
+				success : function(response){
+					response=JSON.parse(response);
+					
+					var html='';
+					document.querySelector('#student').innerHTML = '';
+					for(var si of response){						
+						 html +='<td>' + si.student_num + '</td>';
+						 html +='<td><input type="text" id="student_name' + si.student_num +'" value="' + si.student_name + '"></td>';
+						 html +='<td><input type="text" id="student_major' + si.student_num +'" value="' + si.student_major + '"></td>';
+						 html +='<td><input type="text" id="total_credit_hour' + si.student_num +'" value="' + si.total_credit_hour + '"></td>';
+						 html +='<td><input type="text" id="gpa' + si.student_num +'" value="' + si.gpa + '"></td>';
+						 html +='<td><input type="tel" id="student_phone' + si.student_num +'" value="' + si.student_phone + '"></td>';
+						 html +='<td><input type="text" id="student_address' + si.student_num +'" value="' + si.student_address + '"></td>';
+						 html +='<td><input type="text" id="student_professor' + si.student_num +'" value="' + si.student_professor + '"></td>';
+						 html +='<td><input type="text" id="student_email' + si.student_num +'" value="' + si.student_email + '"></td>';
+						 html +='<td><input type="text" id="student_grade' + si.student_num +'" value="' + si.student_grade + '"></td>';
+						 html += '<td><button type="button" class="btn btn-warning" onclick="updateStudent(' + si.student_num +')">수정</button></td>';
+						 html += '<td><button type="button" class="btn btn-danger" onclick="deleteStudent(' + si.student_num +')">삭제</button></td>';
+						 html += '<td><button type="button" class="btn btn-success" onclick="detailviewStudent(' + si.student_num +')">상세보기</button></td>';
+						 html +='</tr>' 
 
-		
+					}
 
-	/* function stView(student_num){ 
+					document.querySelector('#student').insertAdjacentHTML('beforeend',html);
 
-  		var url = "/studentinfo/" + student_num; 
+					}		
 
-  		var conf = {url:url, 
-
-  				success:viewInfo}; 
-
-  		 
-
-  		var au = new AjaxUtil(conf); 
-
-  		au.send(); 
-
-  		 
-
-  		function viewInfo(response){ 
-
-  			document.querySelector("#form").innerHTML = getView(JSON.parse(res)); 
-
-  		} 
-
-  	} 
-
-  	 
-
-  	function modify(student_num){ 
-
-  		var url = "/studentinfo/" + student_num; 
-
-  		var conf = {url:url, 
-
-  				success:updateView}; 
-
-  		 
-
-  		var au = new AjaxUtil(conf); 
-
-  		au.send(); 
-
-   
-
-  		function updateView(response){ 
-
-  			document.querySelector('#form').innerHTML = getModify(JSON.parse(response)); 
-
-  		} 
-
-  	} 
-
-  	 
-
-  	function updateInfo(){ 
-
-  		var form = document.querySelector("form"); 
-
-  		var formData = new FormData(form); 
-
- 		 
-
-  		var params = formDataToJson(formData); 
-
-  				 
-
-  		var conf = {url:"/studentinfo", 
-
-  						method:"PUT", 
-
-  						params:params, 
-
-  						success:success 
-
-  		}; 
-
-  		 
-
-  		function success(response){ 
-
-  			alert("수정 완료!"); 
-
-  			location.href="/url/studentinfo:list"; 
-
-  		} 
-
-  			 
-
-  		var au = new AjaxUtil(conf); 
-
-  		au.send(); 
-
-  	} */
-
- 
+				}
+		var au = new AjaxUtil(conf);
+		au.send();
+	}
+	
 
 </script>
-
-</body>
-
 </html>
