@@ -253,6 +253,7 @@ window.addEventListener('load', function(){
 		var au = new AjaxUtil(conf);
 		au.send();
 	}
+	}
 	
 </script>
 </html>
