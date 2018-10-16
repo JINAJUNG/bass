@@ -35,23 +35,33 @@ public class StudentController {
 	}
 	
 	
-	@RequestMapping(value="/studentinfo/{studentnum}",method=RequestMethod.GET)
+	@RequestMapping(value="/studentinfo/{studentv}",method=RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView getStudent(@PathVariable Integer studentnum, ModelAndView m) {	
-		m.setViewName("/studentinfo/view");
-		m.addObject("student", ss.getStudent(studentnum));
-		return m;
+	public ModelAndView getStudent(@PathVariable String studentv, ModelAndView m) {
+		
+		try {
+			m.setViewName("/studentinfo/view");
+			m.addObject("student", ss.getStudent(Integer.parseInt(studentv)));
+			
+		}catch (Exception e) {
+			StudentInfo si = new StudentInfo();
+			si.setStudent_major(studentv);
+			m.setViewName("/studentinfo/list");
+			m.addObject("searchstudent", ss.getStudentList(si));
+
+		}	
+			return m;
 	}
 	
-	@RequestMapping(value="/studentinfo/{student_major}",method=RequestMethod.GET)
+/*	@RequestMapping(value="/studentinfo/{student_major}",method=RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView getStudent(@PathVariable String student_major, ModelAndView m) {
 		StudentInfo si = new StudentInfo();
 		si.setStudent_major(student_major);
 		m.setViewName("/studentinfo/list");
-		m.addObject("searchstudent", ss.	getStudentList(si));
+		m.addObject("searchstudent", ss.getStudentList(si));
 		return m;
-	}
+	}*/
 	
 	@RequestMapping(value="/studentinfo",method=RequestMethod.POST)
 	@ResponseBody
