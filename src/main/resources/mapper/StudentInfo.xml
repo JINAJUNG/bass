@@ -9,7 +9,7 @@
 <mapper namespace="SQL.Student">
 	<!-- 조회는 resultType 변경,등록,삭제는 parameterType -->
 	<select id="selectStudentList" resultType="si" parameterType="si">
-		select * from student
+		select sil from student
 		<where>
 			<if test="student_num!=null"> and student_num=#{student_num}
 			</if>
