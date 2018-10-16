@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -45,8 +46,7 @@ public class PaPaGoTest {
 				while((result=br.readLine())!=null) {
 					sb.append(result);
 				}
-			//String result;
-			//StringBuffer sb = new StringBuffer();
+				br.close();
 			while((result=br.readLine())!=null) {
 				sb.append(result);
 			}
@@ -54,11 +54,12 @@ public class PaPaGoTest {
 	
 			if(status==200) {
 				System.out.println(sb.toString());
-				throw new IOException(sb.toString()); //입출력 조작이 실패하거나 해석될때마다 IOException을 시킨다
+				throw new IOException(sb.toString()); //입출력 조작이 실패할때 IOException을 시킨다
 			}
 			ObjectMapper om = new ObjectMapper();
-			//Map<String,Map<String,Map>> m = om.readValue(sb.toString(), Map.class);
-			//System.out.println(m);
+			Map<String,Map<String,Map>> map = om.readValue(sb.toString(), Map.class);
+			System.out.println(map);
+			System.out.println(text + "번역=>" + map.get("message").get("result").get("translatedText"));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
