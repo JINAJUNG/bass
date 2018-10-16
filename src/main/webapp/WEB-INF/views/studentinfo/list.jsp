@@ -213,7 +213,7 @@ window.addEventListener('load', function(){
 		};		
 
 	function detailviewStudent(student_num){
-		alert(student_num)
+		
 		location.href = "/studentinfo/"+student_num;
 
 		}		
@@ -254,6 +254,5 @@ window.addEventListener('load', function(){
 		au.send();
 	}
 	
-
 </script>
 </html>
