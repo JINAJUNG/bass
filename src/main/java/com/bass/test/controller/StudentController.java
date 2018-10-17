@@ -63,6 +63,12 @@ public class StudentController {
 	public Integer deleteStudent(@PathVariable Integer studentnum) {
 		return ss.deleteStudent(studentnum);
 	}
+	@RequestMapping(value="/studentinfoerror/{studentnum}",method=RequestMethod.PUT)
+	@ResponseBody
+	public Integer updateStudenterror(@RequestBody StudentInfo si,@PathVariable Integer studentnum) {
+		si.setStudent_num(studentnum);
+		return ss.updateStudent(si);
+	}
 	
 	
 }

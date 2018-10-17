@@ -11,5 +11,5 @@ public interface StudentService {
 	public Integer insertStudent(StudentInfo si);
 	public Integer updateStudent(StudentInfo si);
 	public Integer deleteStudent(Integer stuNum);
-	
+	public Integer updateStudenterror(StudentInfo si);
 }

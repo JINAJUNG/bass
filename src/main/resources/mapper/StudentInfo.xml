@@ -62,6 +62,7 @@
 		 	<if test="student_grade!=null">
 		 	student_grade=#{student_grade}, 
 		 	</if>
+		 	
 		 </set>
 
 		where student_num=#{student_num}

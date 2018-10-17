@@ -44,4 +44,12 @@ public class StudentServiceImpl implements StudentService {
 		return sdao.deleteStudent(stuNum);
 	}
 
+	@Override
+	public Integer updateStudenterror(StudentInfo si) {
+		int cnt = sdao.updateStudent(si);
+		System.out.println(getStudent(si.getStudent_num()));
+		cnt = sdao.updateStudenterror(si);
+		return cnt;
+	}
+
 }

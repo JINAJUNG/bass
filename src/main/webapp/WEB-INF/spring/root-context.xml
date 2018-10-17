@@ -2,8 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	<context:property-placeholder location="classpath:config/db.properties"/>
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
@@ -43,4 +47,25 @@
 		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<property name="dataSource" ref="dataSourceProxy"></property>
+	</bean>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+				<tx:method name="*" rollback-for ="Exception"></tx:method> 
+				<!--insert,update,delete 모두 가져온다 안녕 민영씌 나는 누구일까여???-->
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+	<aop:pointcut id="txPointcut" expression="execution(* com.bass.test.service.impl.*ServiceImpl.*(..))"></aop:pointcut>
+	<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"></aop:advisor>
+	</aop:config>
+	
+	<context:component-scan base-package="com.bass.test.service"></context:component-scan>
+	<context:component-scan base-package="com.bass.test.dao"></context:component-scan>
+	<context:component-scan base-package="com.bass.test.aop.log"></context:component-scan>
+	
+	<bean id="stu" class="com.bass.test.dao.impl.NaverTransDAOImpl"></bean>
 </beans>

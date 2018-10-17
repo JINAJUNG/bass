@@ -47,4 +47,10 @@ public class StudentDAOImpl implements StudentDAO{
 		return ss.delete("SQL.Student.deleteStudent", stuNum);
 	}
 
+	@Override
+	public Integer updateStudenterror(StudentInfo si) {
+		// TODO Auto-generated method stub
+		return ss.update("SQL.Student.updateStudent",si);
+	}
+
 }

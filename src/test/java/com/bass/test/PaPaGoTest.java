@@ -23,7 +23,7 @@ public class PaPaGoTest {
 	public void test() {
 		HttpsURLConnection huc = null;
 		BufferedReader br = null;
-		String text = "hello";
+		String text = "korea";
 		try {
 			URL url = new URL("https://openapi.naver.com/v1/papago/n2mt");
 			huc = (HttpsURLConnection) url.openConnection();
@@ -47,10 +47,7 @@ public class PaPaGoTest {
 					sb.append(result);
 				}
 				br.close();
-			while((result=br.readLine())!=null) {
-				sb.append(result);
-			}
-			br.close();
+		
 	
 			if(status==200) {
 				System.out.println(sb.toString());

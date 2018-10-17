@@ -203,8 +203,8 @@
 		</dependency>
 
 		<!-- JackSon Config End -->
-		
-			<dependency>
+
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${spring-framework.version}</version>
@@ -229,7 +229,7 @@
 			<artifactId>aspectjtools</artifactId>
 			<version>1.8.9</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
@@ -242,5 +242,14 @@
 			<artifactId>cglib-nodep</artifactId>
 			<version>2.2.2</version>
 		</dependency>
+	
+
+	<!-- lombok -->
+	<dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<version>1.16.22</version>
+		<scope>provided</scope>
+	</dependency>
 	</dependencies>
 </project>
