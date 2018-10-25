@@ -20,17 +20,21 @@ public class StudentController {
 	
 	@Autowired
 	private StudentService ss;
+	
+	@RequestMapping( value="/student_num", method=RequestMethod.GET)
+	@ResponseBody
+	public Integer getstudent_num(){
+		return ss.getstudent_num();
+	}
 
 	@RequestMapping( value="/studentinfo", method=RequestMethod.GET)
 	@ResponseBody
-	public List<StudentInfo> getStudentList(String keyword){
-		StudentInfo si = new StudentInfo();
-		si.setStudent_major(keyword);
-		return ss.getStudentList(si);
+	public List<StudentInfo> getStudentList(){
+		return ss.getStudentList(null);
 	}
 	
 	@RequestMapping( value="/studentinfo/insert", method=RequestMethod.GET)
-	public String getStudentList(){
+	public String insertStudentList(){
 		return "studentinfo/insert";
 	}
 	

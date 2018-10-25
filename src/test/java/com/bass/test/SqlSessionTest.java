@@ -1,4 +1,7 @@
 package com.bass.test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.sql.Connection;
@@ -16,6 +19,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bass.test.vo.StudentInfo;
+import com.bass.test.vo.UserInfo;
+
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -32,7 +38,7 @@ public class SqlSessionTest {
 	@Autowired
 	private SqlSession ss;
 	
-	@Test
+/*	@Test
 	public void test() {
 		try {
 			Connection con = ds.getConnection();
@@ -56,4 +62,18 @@ public class SqlSessionTest {
 	public void selTest() {
 		System.out.println(ss.selectOne("SQL.Student.selectStudentList"));
 	}
-}
+	*/
+	@Test
+	public void test() {
+		UserInfo ui = new UserInfo();
+		assertEquals(7,ss.selectList("SQL.User.selectUserList").size());
+		assertNotNull(ss.selectOne("SQL.User.selectUser"));
+
+	/*	List<UserInfo> selectuserList = ss.selectList("SQL.User.selectUserInfo");
+
+		assertNotEquals(selectuserList.size(), 1);*/
+		fail("Not yet implemented");
+	}
+
+	}
+

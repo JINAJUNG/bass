@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SQL.User">
+
+	<select id="selectUserList" resultType="ui" parameterType="ui">
+		select * from User
+		<where>
+			<if test="uiNum!=null"> and uiNum=#{uiNum}
+			</if>
+			<if test="uiName!=null"> and uiName=#{uiName}
+			</if>
+			<if test="uiId!=null"> and uiId=#{uiId}
+			</if>
+			<if test="uiPwd!=null"> and uiPwd=#{uiPwd}
+			</if>
+			<if test="uiDesc!=null"> and uiDesc=#{uiDesc}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insertUser" parameterType="ui">
+		insert into User
+		values(seq_uiNum.nextval, #{uiNum},
+		#{uiName},
+		#{uiId}, #{uiPwd}, #{uiDesc}
+	</insert>
+
+	<update id="updateUser" parameterType="ui">
+		update User
+		 <set>
+		 	<if test="uiName!=null">
+		 	 uiName=#{uiName},
+		 	</if>
+		 	<if test="uiId!=null">
+		 	 uiId=#{uiId},
+		 	</if>
+		 	<if test="uiPwd!=null">
+		 	 uiPwd=#{uiPwd},
+		 	</if>
+		 	<if test="uiDesc!=null">
+		 	  uiDesc=#{uiDesc},
+		 	</if>
+		 
+		 </set>
+
+		where uiNum=#{uiNum}
+	</update>
+	<delete id="deleteUser" parameterType="ui">
+		delete from User where uiNum=#{uiNum}
+	</delete>
+</mapper>

@@ -12,4 +12,5 @@ public interface StudentDAO {
 	public Integer updateStudent(StudentInfo si);
 	public Integer deleteStudent(Integer stuNum);
 	public Integer updateStudenterror(StudentInfo si);
+	public Integer getstudent_num();
 }

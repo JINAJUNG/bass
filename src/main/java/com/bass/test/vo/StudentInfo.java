@@ -14,7 +14,7 @@ public class StudentInfo {
 		private String student_professor;
 		private String student_email;
 		private Integer student_grade;//String변환 학년 
-		
+		 
 		public StudentInfo() {
 			
 		}

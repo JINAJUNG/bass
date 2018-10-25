@@ -9,8 +9,8 @@
 <mapper namespace="SQL.Student">
 	<!-- 조회는 resultType 변경,등록,삭제는 parameterType -->
 	<select id="selectStudentList" resultType="si" parameterType="si">
-		select sil from student
-		<where>
+		select student_num,student_name,student_major,total_credit_hour from student
+		<!-- <where>
 			<if test="student_num!=null"> and student_num=#{student_num}
 			</if>
 			<if test="student_professor!=null"> and student_professor=#{student_rofessor}
@@ -19,7 +19,11 @@
 			</if>
 			<if test="student_address!=null"> and student_address like '%' || #{student_address}
 				|| '%' </if>
-		</where>
+		</where> -->
+	</select>
+	
+	<select id="selectStudent" resultType="int">
+	select 
 	</select>
 
 	<insert id="insertStudent" parameterType="si">

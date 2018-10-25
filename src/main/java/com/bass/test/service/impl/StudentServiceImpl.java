@@ -52,4 +52,10 @@ public class StudentServiceImpl implements StudentService {
 		return cnt;
 	}
 
+	@Override
+	public Integer getstudent_num() {
+		// TODO Auto-generated method stub
+		return sdao.getstudent_num();
+	}
+
 }
