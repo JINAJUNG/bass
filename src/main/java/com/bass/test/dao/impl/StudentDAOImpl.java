@@ -56,7 +56,7 @@ public class StudentDAOImpl implements StudentDAO{
 	@Override
 	public Integer getstudent_num() {
 		// TODO Auto-generated method stub
-		return ss.selectOne("SQL.Student.selectstudent_num");
+		return ss.selectOne("SQL.Student.selectStudentNum");
 	}
 
 }

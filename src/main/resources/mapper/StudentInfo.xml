@@ -22,9 +22,7 @@
 		</where> -->
 	</select>
 	
-	<select id="selectStudent" resultType="int">
-	select 
-	</select>
+
 
 	<insert id="insertStudent" parameterType="si">
 		insert into student
@@ -74,4 +72,8 @@
 	<delete id="deleteStudent" parameterType="si">
 		delete from student where student_num=#{student_num}
 	</delete>
+	
+	<select id="selectStudentNum" resultType="int">
+		select seq_student_num.nextval from dual
+	</select>
 </mapper>

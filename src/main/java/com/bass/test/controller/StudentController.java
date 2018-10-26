@@ -21,7 +21,7 @@ public class StudentController {
 	@Autowired
 	private StudentService ss;
 	
-	@RequestMapping( value="/student_num", method=RequestMethod.GET)
+	@RequestMapping( value="/studentnum", method=RequestMethod.GET)
 	@ResponseBody
 	public Integer getstudent_num(){
 		return ss.getstudent_num();

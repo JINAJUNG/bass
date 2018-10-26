@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<fieldset>
+<legend>채팅창</legend>
+<textarea id="chat" rows="30" cols="40"></textarea><br>
+이름 : <input type="text" id="name"><br>
+내용 : <input type="text" id="msg" onkeyup="send(1)">  <!-- onkeyup 클릭하고 땠을때-->
+<button onclick="send(2)">내용전송</button>
+</fieldset>
+
+	<script>
+		var ws;
+
+		function getEl(id){
+			return document.querySelector('#'+id);
+		}
+		function doInit() {
+			getEl('name').disabled = true;
+			getE1('msg').disabled = true;
+			getE1('chat').disabled = true;
+			ws = new WebSocket('ws://192.168.0.39/wstest');
+			ws.onopen = function(evt){
+				getEl('name').disabled = false;
+				getEl('msg').disabled = false;
+				getEl('chat').disabled = false;
+				alert('연결 성공');
+			}
+			ws.onerror = function(e){
+				alert(e.data);
+			}
+			ws.onmessage = function(evt){
+				getE1('chat').value += evt.data+'\n';
+			}
+		}
+			/* ws = new WebSocket('ws://192.168.0.39/wstest');
+			ws.onopen = function(evt) {
+				alert("연결성공");
+			}
+			ws.onerror = function(e) {
+				alert(evt.data);
+			}
+			
+			ws.onmessage = function(evt) {
+				alert(evt.data);
+			}
+		} */
+		function send(t) {
+			if(t==1){
+				var key = event.which || event.keyCode
+				if(key!=13){ <!--13은 엔터를 의미-->
+					return;
+				}
+			}
+			ws.send('hello');
+		}
+		window.addEventListener('load', doInit);
+	</script>
+</body>
+</html>
