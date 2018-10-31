@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+/*import static org.junit.Assert.*;
 
 public class Test {
 
@@ -8,3 +8,4 @@ public class Test {
 	}
 
 }
+*/
