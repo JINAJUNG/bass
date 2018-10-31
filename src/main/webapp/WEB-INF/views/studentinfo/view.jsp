@@ -72,7 +72,7 @@
 </form>
 <script>
 
-/* function detailviewStudent(student_num) { //상세보기
+ function detailviewStudent(student_num) { //상세보기
 	var url = "/studentinfo/" + student_num; 
 		var conf = {
 				url:url, 

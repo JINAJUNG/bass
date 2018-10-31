@@ -51,7 +51,8 @@ public class PaPaGoTest {
 	
 			if(status==200) {
 				System.out.println(sb.toString());
-				throw new IOException(sb.toString()); //입출력 조작이 실패할때 IOException을 시킨다
+				throw new IOException(sb.toString()); 
+				//입출력 조작이 실패할때 IOException을 시킨다
 			}
 			ObjectMapper om = new ObjectMapper();
 			Map<String,Map<String,Map>> map = om.readValue(sb.toString(), Map.class);
