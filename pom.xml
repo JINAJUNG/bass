@@ -261,6 +261,6 @@
 	
 	</dependencies>
 	<build>
-	<finalName>bass</finalName>
+	<finalName>ict</finalName>
 	</build>
 </project>
